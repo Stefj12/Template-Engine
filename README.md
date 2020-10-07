@@ -34,7 +34,7 @@ If you have changed the default output filename, html file is output in the spec
 ![Screenshot (7)](https://user-images.githubusercontent.com/70540019/95279959-bbe46480-0808-11eb-9dc2-e6fd21ed4ea6.png)
 
 #### Sample output by Table
-<img src="" width="500px">
+![Screenshot (8)](https://user-images.githubusercontent.com/70540019/95280471-ec78ce00-0809-11eb-9873-026db3cb6eb0.png)
 
 
 ## Testing 
