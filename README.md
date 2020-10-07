@@ -23,7 +23,7 @@ $ node app.js
 3. Choose output format (card or table).
 4. Enter output filename.
 
-<img src="" width="500px">
+ 
 
 
 Once application is completed, HTML file is generated in `./output/team.html`. 
@@ -31,7 +31,7 @@ Once application is completed, HTML file is generated in `./output/team.html`.
 If you have changed the default output filename, html file is output in the specified directory. You can open the html file with a web browser to see the output. 
 
 #### Sample output by Card
-<img src="" width="500px">
+![Screenshot (7)](https://user-images.githubusercontent.com/70540019/95279959-bbe46480-0808-11eb-9dc2-e6fd21ed4ea6.png)
 
 #### Sample output by Table
 <img src="" width="500px">
