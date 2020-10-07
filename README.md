@@ -1,7 +1,7 @@
 # Template-Engine
 
 ## Description 
-This is a command line application which generates a software engineering team table in html. The application will prompt the user for information about the team manager and then information about the team members. The user can input any number of team members, and they may be a mix of engineers and interns. When the user has completed building the team, the application will create an HTML file that displays a nicely formatted team roster based on the information provided by the user. 
+The command line application which generates a software engineering team table in html. The application will prompt the user for information about the team manager and then information about the team members. The user can input any number of team members, and they may be a mix of engineers and interns. When the user has completed building the team, the application will create an HTML file that displays a nicely formatted team roster based on the information provided by the users selection
 
 
 ## Installation 
@@ -53,6 +53,7 @@ $ node appTest.js
 ```
 
 The test tool is built using [Jest](https://jestjs.io/).
+Enter npm run test
 
 ## Technologies
 
