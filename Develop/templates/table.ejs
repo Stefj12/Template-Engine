@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Template</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid bg-secondary">
+        <h1 class="text-center text-white">My Team</h1>
+    </div>
+    <div class="container">
+
+        <table data-toggle="table" id="TeamTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="th-sm">ID
+                </th>
+                <th class="th-sm">Name
+                </th>
+                <th class="th-sm">Title
+                </th>
+                <th class="th-sm">E-mail
+                </th>
+                <th class="th-sm">Office Number
+                </th>
+                <th class="th-sm">Github
+                </th>
+                <th class="th-sm">School
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i< team.length; i++) {%>
+                <tr>
+                    <td><%= team[i].getId() %></td>
+                    <td><%= team[i].getName() %></td>
+                    <td><%- team[i].getIcon() %> <%= team[i].getRole() %></td>
+                    <td><%= team[i].getEmail() %></td>
+                    <td>
+                        <% if (team[i].getRole() == "Manager") {%>
+                            <%= team[i].getOfficeNumber() %>
+                        <%} %>
+                    </td>
+                    <td>
+                        <% if (team[i].getRole() == "Engineer") {%>
+                            <%= team[i].getGithub() %>
+                        <%} %>                            
+                    </td>
+                    <td>
+                        <% if (team[i].getRole() == "Intern") {%>
+                            <%= team[i].getSchool() %>
+                        <%} %>                            
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+          </table>
+    </div>
+</body>

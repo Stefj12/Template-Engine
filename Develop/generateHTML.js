@@ -1,7 +1,8 @@
 const fs = require("fs");
 const ejs = require("ejs");
-
+console.log("File");
 function createHTML(outputFilename, outputLayout, team) { 
+    console.log(outputFilename, outputLayout, team);
     var ejsFile;
     switch(outputLayout) {
         case 'table':

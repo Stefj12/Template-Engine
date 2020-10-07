@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Template</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid" style="background-color: #563D7C;">
+        <h1 class="text-center text-white"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;My Team</h1>
+    </div>
+    <div class="container">
+        <!-- Start of card loop-->
+        <% for (var i = 0; i< team.length; i++) {%>
+            <% if (i % 3 === 0){ %>
+                <div class='row'>
+            <% } %>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-light">
+                    <div class="card-header text-white bg-primary">
+                        <h4><%= team[i].getName() %></h4>
+                        <h4><%- team[i].getIcon() %> &nbsp; <%= team[i].getRole() %></h4>
+                    </div>
+                    <div class="card m-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: <%= team[i].getId() %></li>
+                            <li class="list-group-item">Email: <a href="mailto:<%= team[i].getEmail() %>"><%= team[i].getEmail() %></a></li>
+                            <%
+                            switch(team[i].getRole()) { 
+                                case "Manager":
+                                    option1def = "Office number";  
+                                    option1val = team[i].getOfficeNumber();    
+                                    break;
+                                case "Engineer":
+                                    option1def = "Github";  
+                                    option1val = team[i].getGithub();
+                                    option1val = "<a href='https://github.com/"+ team[i].getGithub() + "'>" + team[i].getGithub() + "</a>"    
+                                    break;
+                                case "Intern": 
+                                    option1def = "School";  
+                                    option1val = team[i].getSchool();    
+                                    break;
+                                case "Employee": 
+                                    option1def = " ";  
+                                    option1val = " ";    
+                                    break;
+                                default:
+                                    option1def = " ";  
+                                    option1val = " ";
+                                    break;
+                            }
+                            %>
+                            <li class="list-group-item"><%= option1def %>: <%- option1val %></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <% if ((i % 3 === 2) || (i === team.length - 1)){ %>
+            </div><!--end row -->
+        <% } %>
+        <% } %><!-- End of card loop -->
+    </div> <!-- End container -->
+</body>
+

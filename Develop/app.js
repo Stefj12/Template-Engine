@@ -4,14 +4,14 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const generateHTML = require("./generateHTML");
+// Assign path and file name for saving created team.html
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
+const render = require("./lib/htmlRenderer");
 
-// const render = require("./lib/htmlRenderer");
-
-var team = [];
-var id = 1;
+const team = [];
+const id = 1;
 
 askBasicQuestions();
 // Asking the questions
@@ -22,7 +22,7 @@ function askBasicQuestions(){
         {type: "list", message: "Choose role: ", name: "role", choices: ["Manager", "Engineer", "Intern"], default: "Engineer"}
         ])
         .then((ans)=> {
-            var role = ans.role;
+            const role = ans.role;
             console.log();
             if ( role === "Manager") { 
                 if (isThereManagerInTeam()){
@@ -41,7 +41,7 @@ function askBasicQuestions(){
 }
 
 function isThereManagerInTeam(){
-    var managerFound = false;
+    const managerFound = false;
     for (var i=0; i<team.length; i++) { 
         if (team[i] instanceof Manager) { 
             managerFound=true;
@@ -84,7 +84,7 @@ function checkHtmlFilename(str) {
 
 function validateEmailFormat(str){
     // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-    var emailRegEx = /\S+@\S+\.\S+/;
+    const emailRegEx = /\S+@\S+\.\S+/;
     if (emailRegEx.test(str)){ 
         return true;
     } else {
@@ -97,7 +97,7 @@ function askManagerQuestion(ans){
     roleQuestions = [{type: "input", message: "Enter Office Number: ", name: "officeNumber", validate: checkNumber}];
     inquirer.prompt(roleQuestions)
         .then((ansMgr) => {
-            var m = new Manager(ans.name, id, ans.email, ansMgr.officeNumber);
+            const m = new Manager(ans.name, id, ans.email, ansMgr.officeNumber);
             id++;
             team.push(m);
             enterMore();
@@ -112,7 +112,7 @@ function askEngineerQuestion(ans){
     inquirer.prompt(roleQuestions)
         .then((ansEng) => {
             //console.log(ans.name, ans.email, ans.role, ans2.github);
-            var e = new Engineer(ans.name, id, ans.email, ansEng.github);
+            const e = new Engineer(ans.name, id, ans.email, ansEng.github);
             id++;
             team.push(e);
             enterMore();
@@ -159,9 +159,10 @@ function enterMore(){
 function chooseOutputFormat(){
     inquirer.prompt([{type: "list", message: "Do you want to output in Card or Table format? :", name: "outputLayout", choices: ["card", "table"], default: "card"}])
     .then((ansLayout)=> {
-        var defaultFilename = path.resolve(__dirname  + "/output/team.html");
+        const defaultFilename = path.resolve(__dirname  + "/output/team.html");
         inquirer.prompt([{type: "input", message: "Enter output filename: ", name: "outputFilename", validate: checkHtmlFilename, default: defaultFilename}])
             .then((ansFilename)=>{
+                console.log(ansFilename,"- ", defaultFilename, ansLayout.outputLayout,team);
                 generateHTML.createHTML(ansFilename.outputFilename, ansLayout.outputLayout, team);
             })
             .catch((err) => { console.log("Error in Inquirer filename.", err) }); 
