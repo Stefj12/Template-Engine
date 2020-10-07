@@ -8,8 +8,8 @@ const generateHTML = require("./generateHTML");
 
 
 
-var team = [];
-var id = 1;
+const team = [];
+const id = 1;
 
 askBasicQuestions();
 
@@ -20,7 +20,7 @@ function askBasicQuestions(){
         {type: "list", message: "Choose role: ", name: "role", choices: ["Manager", "Engineer", "Intern"], default: "Engineer"}
         ])
         .then((ans)=> {
-            var role = ans.role;
+            const role = ans.role;
             console.log();
             if ( role === "Manager") { 
                 if (isThereManagerInTeam()){
@@ -39,7 +39,7 @@ function askBasicQuestions(){
 }
 
 function isThereManagerInTeam(){
-    var managerFound = false;
+    const managerFound = false;
     for (var i=0; i<team.length; i++) { 
         if (team[i] instanceof Manager) { 
             managerFound=true;
@@ -71,7 +71,7 @@ function checkHtmlFilename(str) {
         return false;
     }
 
-    var regEx = /^.*\.(html|htm)$/i;
+    const regEx = /^.*\.(html|htm)$/i;
     if (regEx.test(str)){
         return true;
     } else {
@@ -82,7 +82,7 @@ function checkHtmlFilename(str) {
 
 function validateEmailFormat(str){
     // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-    var emailRegEx = /\S+@\S+\.\S+/;
+    const emailRegEx = /\S+@\S+\.\S+/;
     if (emailRegEx.test(str)){ 
         return true;
     } else {
@@ -157,7 +157,7 @@ function enterMore(){
 function chooseOutputFormat(){
     inquirer.prompt([{type: "list", message: "Do you want to output in Card or Table format? :", name: "outputLayout", choices: ["card", "table"], default: "card"}])
     .then((ansLayout)=> {
-        var defaultFilename = path.resolve(__dirname  + "/output/team.html");
+        const defaultFilename = path.resolve(__dirname  + "/output/team.html");
         inquirer.prompt([{type: "input", message: "Enter output filename: ", name: "outputFilename", validate: checkHtmlFilename, default: defaultFilename}])
             .then((ansFilename)=>{
                 generateHTML.createHTML(ansFilename.outputFilename, ansLayout.outputLayout, team);
