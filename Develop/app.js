@@ -3,18 +3,16 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
+const fs = require("fs");
 const generateHTML = require("./generateHTML");
-// Assign path and file name for saving created team.html
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
 
-const team = [];
-const id = 1;
+
+var team = [];
+var id = 1;
 
 askBasicQuestions();
-// Asking the questions
+
 function askBasicQuestions(){ 
     inquirer.prompt([
         {type: "input", message: "Enter name: ", name: "name", validate: checkMandatory},
@@ -22,7 +20,7 @@ function askBasicQuestions(){
         {type: "list", message: "Choose role: ", name: "role", choices: ["Manager", "Engineer", "Intern"], default: "Engineer"}
         ])
         .then((ans)=> {
-            const role = ans.role;
+            var role = ans.role;
             console.log();
             if ( role === "Manager") { 
                 if (isThereManagerInTeam()){
@@ -41,7 +39,7 @@ function askBasicQuestions(){
 }
 
 function isThereManagerInTeam(){
-    const managerFound = false;
+    var managerFound = false;
     for (var i=0; i<team.length; i++) { 
         if (team[i] instanceof Manager) { 
             managerFound=true;
@@ -84,7 +82,7 @@ function checkHtmlFilename(str) {
 
 function validateEmailFormat(str){
     // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-    const emailRegEx = /\S+@\S+\.\S+/;
+    var emailRegEx = /\S+@\S+\.\S+/;
     if (emailRegEx.test(str)){ 
         return true;
     } else {
@@ -92,12 +90,12 @@ function validateEmailFormat(str){
         return false;
     }
 }
-// Ask Manager Quesetions
+
 function askManagerQuestion(ans){ 
     roleQuestions = [{type: "input", message: "Enter Office Number: ", name: "officeNumber", validate: checkNumber}];
     inquirer.prompt(roleQuestions)
         .then((ansMgr) => {
-            const m = new Manager(ans.name, id, ans.email, ansMgr.officeNumber);
+            var m = new Manager(ans.name, id, ans.email, ansMgr.officeNumber);
             id++;
             team.push(m);
             enterMore();
@@ -106,13 +104,13 @@ function askManagerQuestion(ans){
             console.log("Error in Inquirer Manager questions.", err);
         })
 }
-// Ask Engineer Questions
+
 function askEngineerQuestion(ans){
     roleQuestions = [{type: "input", message: "Enter Github: ", name: "github", validate: checkMandatory}];
     inquirer.prompt(roleQuestions)
         .then((ansEng) => {
             //console.log(ans.name, ans.email, ans.role, ans2.github);
-            const e = new Engineer(ans.name, id, ans.email, ansEng.github);
+            var e = new Engineer(ans.name, id, ans.email, ansEng.github);
             id++;
             team.push(e);
             enterMore();
@@ -121,7 +119,7 @@ function askEngineerQuestion(ans){
             console.log("Error in Inquirer Engineer questions.", err);
         })
 }
-// Ask Intern Questions
+
 function askInternQuestion(ans){
     roleQuestions = [{type: "input", message: "Enter School: ", name: "school", validate: checkMandatory}];
     inquirer.prompt(roleQuestions)
@@ -159,19 +157,15 @@ function enterMore(){
 function chooseOutputFormat(){
     inquirer.prompt([{type: "list", message: "Do you want to output in Card or Table format? :", name: "outputLayout", choices: ["card", "table"], default: "card"}])
     .then((ansLayout)=> {
-        const defaultFilename = path.resolve(__dirname  + "/output/team.html");
+        var defaultFilename = path.resolve(__dirname  + "/output/team.html");
         inquirer.prompt([{type: "input", message: "Enter output filename: ", name: "outputFilename", validate: checkHtmlFilename, default: defaultFilename}])
             .then((ansFilename)=>{
-                console.log(ansFilename,"- ", defaultFilename, ansLayout.outputLayout,team);
                 generateHTML.createHTML(ansFilename.outputFilename, ansLayout.outputLayout, team);
             })
             .catch((err) => { console.log("Error in Inquirer filename.", err) }); 
     })
     .catch((err) => { console.log("Error in Inquirer outputformat.", err) }); 
 }
-
-
-// Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
